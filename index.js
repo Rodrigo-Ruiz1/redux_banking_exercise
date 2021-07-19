@@ -47,11 +47,22 @@ store.subscribe(() => {
     console.log('Watching for state changes...')
     const state = store.getState();
     console.log('Current state ', state);
+    const balance = document.querySelector('#balance');
+    balance.innerText = state.balance;
 });
 
-store.dispatch(actionIncrement(100));
-store.dispatch(actionIncrement(9));
-store.dispatch(actionDecrement(30));
+const increaseButton = document.querySelector('#increase');
+const decreaseButton = document.querySelector('#decrease');
+const amount = document.querySelector('#amount');
 
+increaseButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    const amountValue = parseInt(amount.value);
+    store.dispatch(actionIncrement(amountValue));
+});
 
-console.log('Store state value is: ', store.getState());
+decreaseButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    const amountValue = parseInt(amount.value);
+    store.dispatch(actionDecrement(amountValue));
+});
